@@ -3,43 +3,39 @@ package repository;
 import model.Post;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 // Stub
 public class PostRepository {
-  private final List<Post> posts;
+  private final Map<Long, Post> posts;
 
   public PostRepository() {
-    posts = Collections.synchronizedList(new ArrayList<>());
+    posts = new ConcurrentHashMap<>();
   }
 
   public List<Post> all() {
-    synchronized (posts) {
-      return Collections.unmodifiableList(posts);
-    }
+    return posts.values().stream().toList();
   }
 
   public Optional<Post> getById(long id) {
-    synchronized (posts ) {
-      return posts.stream()
-              .filter(p -> (p.getId() == id))
-              .findFirst();
-    }
+    return Optional.of(posts.get(id));
   }
 
   public Post save(Post post) {
-    posts.add(post);
+    posts.put(post.getId(), post);
     return post;
   }
 
   public Optional<Post> update(Post post) {
-    synchronized (posts) {
-      Optional<Post> foundPost = getById(post.getId());
+      Optional<Post> foundPost = Optional.of(posts.get(post.getId()));
       foundPost.ifPresent(value -> value.setContent(post.getContent()));
       return  foundPost;
-    }
   }
 
-  public boolean removeById(long id) {
-    return posts.remove(new Post(id, ""));
+  public Optional<Post>  removeById(long id) {
+    return Optional.of(posts.remove(id));
   }
 }
