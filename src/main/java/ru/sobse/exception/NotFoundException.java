@@ -1,4 +1,4 @@
-package exception;
+package ru.sobse.exception;
 
 public class NotFoundException extends RuntimeException {
   public NotFoundException() {

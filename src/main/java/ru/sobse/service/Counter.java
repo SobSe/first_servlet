@@ -1,4 +1,4 @@
-package service;
+package ru.sobse.service;
 
 import java.util.concurrent.atomic.AtomicLong;
 

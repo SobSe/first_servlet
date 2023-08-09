@@ -1,11 +1,13 @@
-package service;
+package ru.sobse.service;
 
-import exception.NotFoundException;
-import model.Post;
-import repository.PostRepository;
+import ru.sobse.exception.NotFoundException;
+import ru.sobse.model.Post;
+import org.springframework.stereotype.Service;
+import ru.sobse.repository.PostRepository;
 
 import java.util.List;
 
+@Service
 public class PostService {
   private final PostRepository repository;
 

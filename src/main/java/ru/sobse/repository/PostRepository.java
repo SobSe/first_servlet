@@ -1,14 +1,13 @@
-package repository;
+package ru.sobse.repository;
 
-import model.Post;
+import ru.sobse.model.Post;
+import org.springframework.stereotype.Controller;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
 
 // Stub
+@Controller
 public class PostRepository {
   private final Map<Long, Post> posts;
 

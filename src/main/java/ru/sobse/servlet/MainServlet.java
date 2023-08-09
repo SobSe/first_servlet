@@ -1,8 +1,8 @@
-package servlet;
+package ru.sobse.servlet;
 
-import controller.PostController;
-import repository.PostRepository;
-import service.PostService;
+import ru.sobse.controller.PostController;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ru.sobse.service.PostService;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +18,9 @@ public class MainServlet extends HttpServlet {
 
     @Override
     public void init() {
-        final var repository = new PostRepository();
-        final var service = new PostService(repository);
-        controller = new PostController(service);
+        final var context = new AnnotationConfigApplicationContext("ru.sobse");
+        controller = context.getBean(PostController.class);
+        PostService service = context.getBean(PostService.class);
     }
 
     @Override
