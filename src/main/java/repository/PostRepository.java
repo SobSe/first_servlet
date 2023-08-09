@@ -1,19 +1,20 @@
 package repository;
 
+import exception.NotFoundException;
 import model.Post;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
+import java.util.concurrent.atomic.AtomicLong;
 
 // Stub
 public class PostRepository {
   private final Map<Long, Post> posts;
+  private final AtomicLong counter;
 
   public PostRepository() {
     posts = new ConcurrentHashMap<>();
+    counter = new AtomicLong(0);
   }
 
   public List<Post> all() {
@@ -25,11 +26,16 @@ public class PostRepository {
   }
 
   public Post save(Post post) {
-    posts.put(post.getId(), post);
-    return post;
+    if (post.getId() == 0) {
+      post.setId(counter.incrementAndGet());
+      posts.put(post.getId(), post);
+      return post;
+    } else {
+      return update(post).orElseThrow(NotFoundException::new);
+    }
   }
 
-  public Optional<Post> update(Post post) {
+  private Optional<Post> update(Post post) {
       Optional<Post> foundPost = Optional.of(posts.get(post.getId()));
       foundPost.ifPresent(value -> value.setContent(post.getContent()));
       return  foundPost;
