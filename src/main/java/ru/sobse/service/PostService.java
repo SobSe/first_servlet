@@ -7,7 +7,7 @@ import ru.sobse.repository.PostRepository;
 
 import java.util.List;
 
-@Service
+
 public class PostService {
   private final PostRepository repository;
 
