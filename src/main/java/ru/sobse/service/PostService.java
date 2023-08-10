@@ -24,14 +24,7 @@ public class PostService {
   }
 
   public Post save(Post post) {
-    if (post.getId() == 0) {
-      Counter counter = Counter.getCounter();
-      post.setId(counter.increment());
-      return repository.save(post);
-    } else {
-      return repository.update(post).orElseThrow(NotFoundException::new );
-    }
-
+    return repository.save(post);
   }
 
   public Post removeById(long id) {
