@@ -1,5 +1,6 @@
 package ru.sobse.repository;
 
+import org.springframework.stereotype.Repository;
 import ru.sobse.model.Post;
 import ru.sobse.exception.NotFoundException;
 import org.springframework.stereotype.Controller;
@@ -9,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 // Stub
-@Controller
+@Repository
 public class PostRepository {
   private final Map<Long, Post> posts;
   private final AtomicLong counter;
