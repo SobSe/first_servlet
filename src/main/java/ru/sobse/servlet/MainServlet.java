@@ -1,5 +1,6 @@
 package ru.sobse.servlet;
 
+import ru.sobse.config.JavaConfig;
 import ru.sobse.controller.PostController;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.sobse.service.PostService;
@@ -18,7 +19,7 @@ public class MainServlet extends HttpServlet {
 
     @Override
     public void init() {
-        final var context = new AnnotationConfigApplicationContext("ru.sobse");
+        final var context = new AnnotationConfigApplicationContext(JavaConfig.class);
         controller = context.getBean(PostController.class);
         PostService service = context.getBean(PostService.class);
     }
